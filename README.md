@@ -2,7 +2,7 @@
 
 > 9-task dexterous manipulation suite · MuJoCo 3.x · Gymnasium-Robotics · SAC/PPO baselines
 
-![banner](assets/banner.svg)
+![MuJoCo Dexterous Hand Benchmark banner](assets/banner.png)
 
 ## Overview
 
