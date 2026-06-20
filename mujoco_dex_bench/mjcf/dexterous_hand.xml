@@ -1,0 +1,158 @@
+<mujoco model="dexterous_hand">
+  <compiler angle="degree" autolimits="true" meshdir="assets"/>
+
+  <default>
+    <default class="dex_finger">
+      <geom type="capsule" friction="1.0 0.005 0.0001" condim="4" rgba="0.85 0.75 0.65 1"/>
+      <joint type="hinge" damping="0.05" armature="0.001" limited="true"/>
+    </default>
+    <default class="dex_palm">
+      <geom type="box" friction="1.0 0.005 0.0001" condim="4" rgba="0.75 0.65 0.55 1"/>
+    </default>
+    <default class="dex_tip">
+      <geom type="sphere" size="0.008" friction="1.2 0.005 0.0001" condim="4" rgba="0.9 0.8 0.7 1"/>
+    </default>
+    <default class="dex_actuator">
+      <position kp="5" gear="1" ctrllimited="true" ctrlrange="-1 1"/>
+    </default>
+  </default>
+
+  <asset>
+    <texture name="grid" type="2d" builtin="checker" width="512" height="512"
+             rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"/>
+    <material name="grid_mat" texture="grid" texrepeat="8 8" reflectance="0.1"/>
+  </asset>
+
+  <worldbody>
+    <body name="palm" pos="0 0 0.15" childclass="dex_palm">
+      <geom name="palm_geom" size="0.04 0.06 0.015" mass="0.3"/>
+
+      <!-- Index finger -->
+      <body name="index_prox" pos="0.035 0.04 0" quat="0.707 0 0.707 0" childclass="dex_finger">
+        <joint name="index_mcp" axis="0 1 0" range="0 90"/>
+        <geom name="index_prox_geom" fromto="0 0 0 0 0 0.035" size="0.007" mass="0.015"/>
+        <body name="index_med" pos="0 0 0.035">
+          <joint name="index_pip" axis="0 1 0" range="0 100"/>
+          <geom name="index_med_geom" fromto="0 0 0 0 0 0.03" size="0.006" mass="0.015"/>
+          <body name="index_dist" pos="0 0 0.03">
+            <joint name="index_dip" axis="0 1 0" range="0 80"/>
+            <geom name="index_dist_geom" fromto="0 0 0 0 0 0.025" size="0.005" mass="0.015"/>
+            <geom name="index_tip" class="dex_tip" pos="0 0 0.028"/>
+            <site name="index_tip_site" pos="0 0 0.028" size="0.005"/>
+          </body>
+        </body>
+      </body>
+
+      <!-- Middle finger -->
+      <body name="middle_prox" pos="0.012 0.05 0" quat="0.707 0 0.707 0" childclass="dex_finger">
+        <joint name="middle_mcp" axis="0 1 0" range="0 90"/>
+        <geom name="middle_prox_geom" fromto="0 0 0 0 0 0.038" size="0.007" mass="0.015"/>
+        <body name="middle_med" pos="0 0 0.038">
+          <joint name="middle_pip" axis="0 1 0" range="0 100"/>
+          <geom name="middle_med_geom" fromto="0 0 0 0 0 0.032" size="0.006" mass="0.015"/>
+          <body name="middle_dist" pos="0 0 0.032">
+            <joint name="middle_dip" axis="0 1 0" range="0 80"/>
+            <geom name="middle_dist_geom" fromto="0 0 0 0 0 0.027" size="0.005" mass="0.015"/>
+            <geom name="middle_tip" class="dex_tip" pos="0 0 0.03"/>
+            <site name="middle_tip_site" pos="0 0 0.03" size="0.005"/>
+          </body>
+        </body>
+      </body>
+
+      <!-- Ring finger -->
+      <body name="ring_prox" pos="-0.012 0.048 0" quat="0.707 0 0.707 0" childclass="dex_finger">
+        <joint name="ring_mcp" axis="0 1 0" range="0 90"/>
+        <geom name="ring_prox_geom" fromto="0 0 0 0 0 0.036" size="0.007" mass="0.015"/>
+        <body name="ring_med" pos="0 0 0.036">
+          <joint name="ring_pip" axis="0 1 0" range="0 100"/>
+          <geom name="ring_med_geom" fromto="0 0 0 0 0 0.03" size="0.006" mass="0.015"/>
+          <body name="ring_dist" pos="0 0 0.03">
+            <joint name="ring_dip" axis="0 1 0" range="0 80"/>
+            <geom name="ring_dist_geom" fromto="0 0 0 0 0 0.025" size="0.005" mass="0.015"/>
+            <geom name="ring_tip" class="dex_tip" pos="0 0 0.028"/>
+            <site name="ring_tip_site" pos="0 0 0.028" size="0.005"/>
+          </body>
+        </body>
+      </body>
+
+      <!-- Pinky finger -->
+      <body name="pinky_prox" pos="-0.035 0.04 0" quat="0.707 0 0.707 0" childclass="dex_finger">
+        <joint name="pinky_mcp" axis="0 1 0" range="0 90"/>
+        <geom name="pinky_prox_geom" fromto="0 0 0 0 0 0.03" size="0.006" mass="0.015"/>
+        <body name="pinky_med" pos="0 0 0.03">
+          <joint name="pinky_pip" axis="0 1 0" range="0 100"/>
+          <geom name="pinky_med_geom" fromto="0 0 0 0 0 0.025" size="0.005" mass="0.015"/>
+          <body name="pinky_dist" pos="0 0 0.025">
+            <joint name="pinky_dip" axis="0 1 0" range="0 80"/>
+            <geom name="pinky_dist_geom" fromto="0 0 0 0 0 0.022" size="0.004" mass="0.015"/>
+            <geom name="pinky_tip" class="dex_tip" pos="0 0 0.025"/>
+            <site name="pinky_tip_site" pos="0 0 0.025" size="0.005"/>
+          </body>
+        </body>
+      </body>
+
+      <!-- Thumb (CMC + 2 links) -->
+      <body name="thumb_cmc" pos="0.045 -0.02 0" quat="0.5 0.5 0.5 0.5" childclass="dex_finger">
+        <joint name="thumb_cmc" axis="0 0 1" range="-30 60"/>
+        <geom name="thumb_base_geom" type="box" size="0.012 0.008 0.008" mass="0.015"/>
+        <body name="thumb_prox" pos="0.02 0 0">
+          <joint name="thumb_mcp" axis="0 1 0" range="0 90"/>
+          <geom name="thumb_prox_geom" fromto="0 0 0 0.03 0 0" size="0.007" mass="0.015"/>
+          <body name="thumb_dist" pos="0.03 0 0">
+            <joint name="thumb_ip" axis="0 1 0" range="0 80"/>
+            <geom name="thumb_dist_geom" fromto="0 0 0 0.025 0 0" size="0.006" mass="0.015"/>
+            <geom name="thumb_tip" class="dex_tip" pos="0.028 0 0"/>
+            <site name="thumb_tip_site" pos="0.028 0 0" size="0.005"/>
+          </body>
+        </body>
+      </body>
+
+      <site name="palm_center" pos="0 0.02 0" size="0.01"/>
+    </body>
+  </worldbody>
+
+  <tendon>
+    <fixed name="index_tendon">
+      <joint joint="index_pip" coef="1.0"/>
+      <joint joint="index_dip" coef="0.6"/>
+    </fixed>
+    <fixed name="middle_tendon">
+      <joint joint="middle_pip" coef="1.0"/>
+      <joint joint="middle_dip" coef="0.6"/>
+    </fixed>
+    <fixed name="ring_tendon">
+      <joint joint="ring_pip" coef="1.0"/>
+      <joint joint="ring_dip" coef="0.6"/>
+    </fixed>
+    <fixed name="pinky_tendon">
+      <joint joint="pinky_pip" coef="1.0"/>
+      <joint joint="pinky_dip" coef="0.6"/>
+    </fixed>
+  </tendon>
+
+  <actuator>
+    <position class="dex_actuator" name="act_index_mcp" joint="index_mcp"/>
+    <position class="dex_actuator" name="act_index_pip" joint="index_pip"/>
+    <position class="dex_actuator" name="act_index_dip" joint="index_dip"/>
+    <position class="dex_actuator" name="act_middle_mcp" joint="middle_mcp"/>
+    <position class="dex_actuator" name="act_middle_pip" joint="middle_pip"/>
+    <position class="dex_actuator" name="act_middle_dip" joint="middle_dip"/>
+    <position class="dex_actuator" name="act_ring_mcp" joint="ring_mcp"/>
+    <position class="dex_actuator" name="act_ring_pip" joint="ring_pip"/>
+    <position class="dex_actuator" name="act_ring_dip" joint="ring_dip"/>
+    <position class="dex_actuator" name="act_pinky_mcp" joint="pinky_mcp"/>
+    <position class="dex_actuator" name="act_pinky_pip" joint="pinky_pip"/>
+    <position class="dex_actuator" name="act_pinky_dip" joint="pinky_dip"/>
+    <position class="dex_actuator" name="act_thumb_cmc" joint="thumb_cmc"/>
+    <position class="dex_actuator" name="act_thumb_mcp" joint="thumb_mcp"/>
+    <position class="dex_actuator" name="act_thumb_ip" joint="thumb_ip"/>
+  </actuator>
+
+  <sensor>
+    <touch name="touch_index" site="index_tip_site"/>
+    <touch name="touch_middle" site="middle_tip_site"/>
+    <touch name="touch_ring" site="ring_tip_site"/>
+    <touch name="touch_pinky" site="pinky_tip_site"/>
+    <touch name="touch_thumb" site="thumb_tip_site"/>
+  </sensor>
+</mujoco>

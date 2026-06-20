@@ -1,0 +1,28 @@
+<mujoco model="in_hand_reorient_scene">
+  <compiler angle="degree" autolimits="true"/>
+  <option timestep="0.002" gravity="0 0 -9.81"/>
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <global azimuth="120" elevation="-20"/>
+  </visual>
+  <asset>
+    <texture name="floor_tex" type="2d" builtin="checker" width="512" height="512"
+             rgb1="0.25 0.25 0.25" rgb2="0.35 0.35 0.35"/>
+    <material name="floor_mat" texture="floor_tex" texrepeat="4 4" reflectance="0.2"/>
+  </asset>
+  <include file="dexterous_hand.xml"/>
+  <worldbody>
+    <light pos="0 0 1.5" dir="0 0 -1" diffuse="0.8 0.8 0.8"/>
+    <light pos="0.5 0.5 1.0" dir="-0.3 -0.3 -1" diffuse="0.5 0.5 0.5"/>
+    <geom name="floor" type="plane" size="2 2 0.05" material="floor_mat" condim="3"/>
+
+    <body name="cube" pos="0.02 0.05 0.22">
+      <freejoint name="cube_free"/>
+      <geom name="cube_geom" type="box" size="0.0175 0.0175 0.0175" mass="0.05"
+            friction="1.0 0.005 0.0001" rgba="0.8 0.2 0.2 1"/>
+      <site name="object_site" pos="0 0 0" size="0.01"/>
+    </body>
+
+    <site name="target" pos="0.02 0.05 0.22" size="0.02" rgba="1 0 0 0.3"/>
+  </worldbody>
+</mujoco>

@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mujoco-dex-bench"
+version = "0.1.0"
+description = "A 9-task dexterous manipulation benchmark built on MuJoCo 3.x and Gymnasium-Robotics"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Sameer Chaulagain", email = "sc12035@nyu.edu"}]
+keywords = ["robotics", "reinforcement-learning", "mujoco", "dexterous-manipulation", "simulation"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+  "mujoco>=3.1.0",
+  "gymnasium>=0.29.0",
+  "gymnasium-robotics>=1.2.4",
+  "dm-control>=1.0.14",
+  "stable-baselines3>=2.3.0",
+  "numpy>=1.26.0",
+  "scipy>=1.12.0",
+  "torch>=2.2.0",
+  "matplotlib>=3.8.0",
+  "pandas>=2.2.0",
+  "tqdm>=4.66.0",
+  "typer>=0.12.0",
+  "rich>=13.7.0",
+  "tensorboard>=2.14.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-cov", "ruff", "mypy"]
+
+[project.scripts]
+dex-train = "mujoco_dex_bench.baselines.train_sac:app"
+dex-eval  = "mujoco_dex_bench.eval.evaluate:app"
+dex-sysid = "mujoco_dex_bench.sysid.fit_params:app"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["mujoco_dex_bench*"]
+
+[tool.setuptools.package-data]
+mujoco_dex_bench = ["mjcf/**/*.xml", "mjcf/**/*.md"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]

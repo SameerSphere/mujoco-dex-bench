@@ -1,0 +1,29 @@
+<mujoco model="ball_roll_scene">
+  <compiler angle="degree" autolimits="true"/>
+  <option timestep="0.002" gravity="0 0 -9.81"/>
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <global azimuth="120" elevation="-20"/>
+  </visual>
+  <asset>
+    <texture name="floor_tex" type="2d" builtin="checker" width="512" height="512"
+             rgb1="0.25 0.25 0.25" rgb2="0.35 0.35 0.35"/>
+    <material name="floor_mat" texture="floor_tex" texrepeat="4 4" reflectance="0.2"/>
+  </asset>
+  <include file="dexterous_hand.xml"/>
+  <worldbody>
+    <light pos="0 0 1.5" dir="0 0 -1" diffuse="0.8 0.8 0.8"/>
+    <light pos="0.5 0.5 1.0" dir="-0.3 -0.3 -1" diffuse="0.5 0.5 0.5"/>
+    <geom name="floor" type="plane" size="2 2 0.05" material="floor_mat" condim="3"
+          friction="0.8 0.005 0.001"/>
+
+    <body name="ball" pos="0.05 0.05 0.025">
+      <freejoint name="ball_free"/>
+      <geom name="ball_geom" type="sphere" size="0.025" mass="0.08"
+            friction="0.6 0.005 0.002" rgba="0.9 0.3 0.1 1"/>
+      <site name="object_site" pos="0 0 0" size="0.025"/>
+    </body>
+
+    <site name="target" pos="0.15 0.05 0.025" size="0.02" rgba="1 0 0 0.3"/>
+  </worldbody>
+</mujoco>

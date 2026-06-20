@@ -1,0 +1,34 @@
+<mujoco model="chopstick_grasp_scene">
+  <compiler angle="degree" autolimits="true"/>
+  <option timestep="0.002" gravity="0 0 -9.81"/>
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <global azimuth="120" elevation="-20"/>
+  </visual>
+  <asset>
+    <texture name="floor_tex" type="2d" builtin="checker" width="512" height="512"
+             rgb1="0.25 0.25 0.25" rgb2="0.35 0.35 0.35"/>
+    <material name="floor_mat" texture="floor_tex" texrepeat="4 4" reflectance="0.2"/>
+  </asset>
+  <include file="dexterous_hand.xml"/>
+  <worldbody>
+    <light pos="0 0 1.5" dir="0 0 -1" diffuse="0.8 0.8 0.8"/>
+    <light pos="0.5 0.5 1.0" dir="-0.3 -0.3 -1" diffuse="0.5 0.5 0.5"/>
+    <geom name="floor" type="plane" size="2 2 0.05" material="floor_mat" condim="3"/>
+
+    <body name="chopstick_a" pos="0.04 0.06 0.2" quat="0.707 0.707 0 0">
+      <freejoint name="stick_a_free"/>
+      <geom name="stick_a_geom" type="capsule" size="0.004 0.10" mass="0.006"
+            friction="0.9 0.005 0.0001" rgba="0.6 0.4 0.2 1"/>
+    </body>
+
+    <body name="chopstick_b" pos="0.04 0.04 0.2" quat="0.707 0.707 0 0">
+      <freejoint name="stick_b_free"/>
+      <geom name="stick_b_geom" type="capsule" size="0.004 0.10" mass="0.006"
+            friction="0.9 0.005 0.0001" rgba="0.5 0.35 0.15 1"/>
+      <site name="object_site" pos="0 0 0.08" size="0.008"/>
+    </body>
+
+    <site name="target" pos="0.06 0.05 0.25" size="0.02" rgba="1 0 0 0.3"/>
+  </worldbody>
+</mujoco>
